@@ -226,7 +226,13 @@ export const addToCognitoGroup = (email: string, role: string) => dispatch => {
  * @param role 
  */
 export const deleteFromCognitoGroup = (email: string, role: string) => dispatch => {
-  blakeClient.deleteUserGroup(email, role)
+  let group = '';
+  if(role === "TRAINER") {
+    group = "trainer"
+  } else if(role === "STAGING_MANAGER") {
+    group = "staging-manager"
+  }
+  blakeClient.deleteUserGroup(email, group)
   .then(response => {
     toast.success("User is removed from group")
   })
